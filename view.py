@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from button import *
+from button import DigitButton, OperationButton, EqualsButton, ClearButton, ButtonDecorator
 import platform
 
 class CalculatorView(ctk.CTk):
@@ -41,10 +41,14 @@ class CalculatorView(ctk.CTk):
                 elif char == '=':
                     button = EqualsButton(self.controller, char)
 
-                btn = button.create_button(frame)
+                decorated_button = ButtonDecorator(button)
+
+                btn = decorated_button.create_button(frame)
                 btn.pack(side="left", padx=5)
 
-        ClearButton(self.controller, "Очистить").create_button(self).pack(pady=10)
+        clear_button = ClearButton(self.controller, "Очистить")
+        decorated_clear = ButtonDecorator(clear_button)
+        decorated_clear.create_button(self).pack(pady=10)
 
     def update_display(self, text):
         self.entry.delete(0, ctk.END)
